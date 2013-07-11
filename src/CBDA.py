@@ -9,7 +9,14 @@ global K     # Numebers of Neighbours
 global N_X   # Number of x row in data
 global N_Y   # Number of y row in data
 
-data = np.loadtxt("../input/synthetic_data.dat")
+#data = np.loadtxt("../input/synthetic_data.dat")
+#ata = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/quest.rrab.cmj_akv.dat")
+#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/layden.rrls.mateu_dists.dat")
+#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/sesar.rrls.mydists.dat")
+#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/JJD_BD.dat")
+data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/JJD_VLMS.dat")
+
+
 
 N_X = 0
 N_Y = 1
