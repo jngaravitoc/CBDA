@@ -8,10 +8,10 @@ def Init_Distribution(Dx, Dy, nx, ny):
     global Y
     X = np.random.random(nx)*Dx
     Y = np.random.random(ny)*Dy
-    X = np.append(X, np.random.normal(loc=800, scale = 20, size = 300))
-    Y = np.append(Y, np.random.normal(loc=600, scale = 80, size = 300))
-    X = np.append(X, np.random.normal(loc= 200, scale = 50, size = 100))
-    Y = np.append(Y, np.random.normal(loc= 300, scale = 50, size = 100))
+    X = np.append(X, np.random.normal(loc= 0.80*Dx, scale = 2, size = 300))
+    Y = np.append(Y, np.random.normal(loc= 0.60*Dy, scale = 8, size = 300))
+    X = np.append(X, np.random.normal(loc= 0.20*Dx, scale = 5, size = 100))
+    Y = np.append(Y, np.random.normal(loc= 0.30*Dy, scale = 5, size = 100))
     for i in range(nx):
         f.write(str(X[i]) + "  " + str(Y[i]) + "\n")
     f.close()
@@ -42,4 +42,4 @@ def Init_Distribution_Polar(nR):
     #savefig('RandomPolarDistribution.png')
     return R, theta
 
-Init_Distribution(100, 100, 100, 1000)
+Init_Distribution(100, 100, 1000, 1000)

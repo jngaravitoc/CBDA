@@ -10,16 +10,17 @@ global N_X   # Number of x row in data
 global N_Y   # Number of y row in data
 
 #data = np.loadtxt("../input/synthetic_data.dat")
-#ata = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/quest.rrab.cmj_akv.dat")
+data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/quest.rrab.cmj_akv.dat")
 #data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/layden.rrls.mateu_dists.dat")
 #data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/sesar.rrls.mydists.dat")
 #data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/JJD_BD.dat")
-data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/JJD_VLMS.dat")
-
+#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/JJD_VLMS.dat")
+#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/synth.quest.x1.dat")
+#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/synth.quest.x100.dat")
 
 
 N_X = 0
-N_Y = 1
+N_Y = 4
 D = 2
 
 X = data[:, N_X]
@@ -98,7 +99,7 @@ solution(12)
 
 #Sigma Estimator
 
-def sigma_estimator(K, Res):
+def sigma_estimator(K):
     k = range(1, 100)
     global sigma_2
     sigma_2 = []
@@ -114,14 +115,14 @@ def sigma_estimator(K, Res):
         sigma_2.append(np.pi*sigma**2) 
     #p  rint type(sigma), dtype(S[1]), type(S), dtype(S2), type(sigma_2)
     
-#sigma_estimator(12, 200)
+sigma_estimator(12)
 
 
 # Writting Data to make plots
 
 def plots(Res):
-	f = open('../output/DensityData.txt', 'w')
-    	f.write("#x     y      d_0" + "\n")
+	f = open('../output/DensityData_Quest.txt', 'w')
+    	f.write("#x     y         d_0       sigma" + "\n")
     	global x
     	global y
     	x = []
@@ -135,7 +136,7 @@ def plots(Res):
             		x.append(i)
             		y.append(j)
     	for i in range(len(x)):
-        	f.write(str(x[i]) + "  " + str(y[i]) + "  " + str(d_0[i]) +"\n") 
+        	f.write(str(x[i]) + "  " + str(y[i]) + "  " + str(d_0[i]) + "  " + str(sigma_2[i])+"\n") 
     	f.close()
     #print len(x), len(y), len(T3)
 
