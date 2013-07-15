@@ -9,10 +9,11 @@ global K     # Numebers of Neighbours
 global N_X   # Number of x row in data
 global N_Y   # Number of y row in data
 
-#data = np.loadtxt("../input/synthetic_data.dat")
-data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/quest.rrab.cmj_akv.dat")
+#data = np.loadtxt("../input/synthetic_dat.dat")
+#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/quest.rrab.cmj_akv.dat")
+#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/Quest_cut.dat")
 #data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/layden.rrls.mateu_dists.dat")
-#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/sesar.rrls.mydists.dat")
+data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/sesar.rrls.mydists.dat")
 #data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/JJD_BD.dat")
 #data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/JJD_VLMS.dat")
 #data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/synth.quest.x1.dat")
@@ -23,8 +24,10 @@ N_X = 0
 N_Y = 4
 D = 2
 
-X = data[:, N_X]
+X = data[:, N_X]/15.0 
 Y = data[:, N_Y]
+#print 'amin X=', np.amin(X), 'amax X=', np.amax(X)
+#print 'amin Y=', np.amin(Y), 'amax Y=', np.amax(Y)
 #Z = data[:, N_Z]
 
 # This function search for the K closest neighbours 
@@ -63,7 +66,7 @@ def Neighbours_Cartesian(k, Res):
 					d_k.append(d3)	
 	else:	
 		print 'No aveilable dimension'
-    	print 'Done'
+    	print 'Completed neighbours finder'
     #print d4[0:10]
     
 Neighbours_Cartesian(12, 200)
@@ -91,10 +94,11 @@ def solution(K):
             			T.append(teo)
 				#print type(T)
         		T2 = np.sqrt(sum(T)) 
-        		d_0.append(1.0/(T2*T2*np.pi)) #This is divided in order to get n_0
+        		d_0.append(K/(T2*T2*np.pi)) #This is divided in order to get n_0
 	else:
 		print 'No aveilable dimension'
-	print 'done'
+	print 'Completed density estimation'
+	
 solution(12)
 
 #Sigma Estimator
@@ -114,17 +118,18 @@ def sigma_estimator(K):
         sigma = (-K*d_0[i]**4)/(2*S2)
         sigma_2.append(np.pi*sigma**2) 
     #p  rint type(sigma), dtype(S[1]), type(S), dtype(S2), type(sigma_2)
-    
+    print 'Completed Sigma estimation'
+    print 'Writting data in (../output/)'
 sigma_estimator(12)
 
 
 # Writting Data to make plots
 
 def plots(Res):
-	f = open('../output/DensityData_Quest.txt', 'w')
+	f = open('../output/Sesar_ARvsRhel.txt', 'w')
     	f.write("#x     y         d_0       sigma" + "\n")
-    	global x
-    	global y
+    	#global x
+    	#global y
     	x = []
     	y = []
     	Fx = np.linspace(np.amin(X) , np.amax(X)  , Res)
