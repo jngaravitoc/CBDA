@@ -1,0 +1,15 @@
+Histogram = 1
+Residues = 0
+densities_path_1 = /home/nicolas/Dropbox/github/CBDA/output/DensityData_QuestCut_ARvsRhel.txt    
+densities_path_2 = 0
+data_path_1 = /home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/Quest_cut.dat
+data_path_2 = 0
+out_fig_path = /home/nicolas/Dropbox/github/CBDA/output/plots/test.png 
+n_bins = 200 
+x_data_row = 0
+y_data_row = 1
+histo_xlabel = RA
+histo_ylabel = R_{hel}
+histo_title = test_Histogram
+histo_xsize = 9.5
+histo_ysize = 9.5
