@@ -41,7 +41,7 @@ def Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit,
 	d_k = [] 
 	if D == 1:
 		X = data[:, N_X]/15.0
-		Fx = np.linspace( xmin_limit, xmax_limit, Res)
+		Fx = np.linspace(xmin_limit, xmax_limit, Res)
 		for i in Fx:
 			d = (X-i)
 			d2 = sorted(d)
@@ -134,40 +134,45 @@ sigma_estimator(K)
 # Writting Data to make plots
 
 def plots(Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit, zmin_limit, zmax_limit):
+        f = open(str(data_output), 'w')
+	
+	x = []
+        y = []
+        z = []
+
 	if D == 1:
 		X = data[:, N_X]
-        elif D ==2:
+		f.write("# x  d_0   sigma " + "\n")
+       	        Fx = np.linspace(xmin_limit , xmax_limit  , Res)
+		for i in Fx:
+			x.append(i)
+		for i in range(len(x)):
+			 f.write(str(x[i]) +  "  " + str(d_0[i]) + "  " + str(sigma_2[i])+"\n")
+		f.close()
+		
+	elif D ==2:
 		X = data[:, N_Y]
 		Y = data[:, N_Y]
-        if D ==3:
+		f.write("# x    y    d_0      sigma"+ "\n") 
+		Fx = np.linspace(xmin_limit , xmax_limit  , Res)
+	        Fy = np.linspace(ymin_limit , ymax_limit  , Res)
+ 		for i in Fx:
+                	for j in Fy:
+                        	x.append(i)
+                       		y.append(j)
+	        for i in range(len(x)):
+        	        f.write(str(x[i]) + "  " + str(y[i]) + "  " + str(d_0[i]) + "  " + str(sigma_2[i])+"\n")
+        	f.close()
+
+        elif D ==3:
 		X = data[:, N_X]
 		Y = data[:, N_Z]
 		Z = data[:, N_Z]
-
-	f = open(str(data_output), 'w')
-	if D == 1:
-		f.write("# x  d_0   sigma " + "\n")
-	if D == 2:
-		f.write("# x    y    d_0      sigma"+ "\n") 		
-	if D == 3:
-    		f.write("#x     y      z      d_0       sigma" + "\n")
-    	#global x
-    	#global y
-    	x = []
-    	y = []
-	z = []
-    	Fx = np.linspace(xmin_limit , xmax_limit  , Res)
-    	Fy = np.linspace(ymin_limit , ymax_limit  , Res)
-    	#FRx = linspace(amin(R*cos(theta)) - 5, amax(R*cos(theta)) + 5 , Res)
+		f.write("#x     y      z      d_0       sigma" + "\n")
+	
+	
+   	#FRx = linspace(amin(R*cos(theta)) - 5, amax(R*cos(theta)) + 5 , Res)
     	#FRy = linspace(amin(R*sin(theta)) - 5, amax(R*sin(theta)) + 5 , Res)
-    	for i in Fx:
-        	for j in Fy:
-            		x.append(i)
-            		y.append(j)
-   	for i in range(len(x)):
-        	f.write(str(x[i]) + "  " + str(y[i]) + "  " + str(d_0[i]) + "  " + str(sigma_2[i])+"\n") 
-    	f.close()
-    #print len(x), len(y), len(T3)
-
+    	
 plots(Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit, zmin_limit, zmax_limit)
 

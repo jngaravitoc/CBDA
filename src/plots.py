@@ -13,36 +13,38 @@ else:
 		(key, val) = (x[i,0], x[i, 2])
 		dic[(key)] = val
 
-hist = float(dic['Histogram'])
-Residues = float(dic['Residues'])
-density_1 = np.loadtxt(dic['densities_path_1'])
-data_1 = np.loadtxt(dic['data_path_1'])
-nx_bins = float(dic['nx_bins'])
-ny_bins = float(dic['ny_bins'])
+# Defining Variables
+	hist = float(dic['Histogram'])
+	Residues = float(dic['Residues'])
+	density_1 = np.loadtxt(dic['densities_path_1'])
+	data_1 = np.loadtxt(dic['data_path_1'])
+	nx_bins = float(dic['nx_bins'])
+	ny_bins = float(dic['ny_bins'])
+	D = int(dic['D'])
 
-if hist == 1:
-	out_histofig_path = dic['out_histofig_path']
-	histo_xlabel = dic['histo_xlabel']
-	histo_ylabel = dic['histo_ylabel']
-	histo_title = dic['histo_title']
-	histo_xsize = float(dic['histo_xsize'])
-	histo_ysize = float(dic['histo_ysize'])
-	x_data_row = float(dic['x_data_row'])
-	y_data_row = float(dic['y_data_row'])
+	if hist == 1:
+		out_histofig_path = dic['out_histofig_path']
+		histo_xlabel = dic['histo_xlabel']
+		histo_ylabel = dic['histo_ylabel']
+		histo_title = dic['histo_title']
+		histo_xsize = float(dic['histo_xsize'])
+		histo_ysize = float(dic['histo_ysize'])
+		x_data_row = float(dic['x_data_row'])
+		y_data_row = float(dic['y_data_row'])
 
-if Residues == 1:
-	density_2 = np.loadtxt(dic['densities_path_2'])
-	data_2 = np.loadtxt(dic['data_path_2'])
-	out_residuesfig_path = dic['out_residuesfig_path']
-	res_xlabel = dic['res_xlabel']
-	res_ylabel = dic['res_ylabel']
-	res_title = dic['res_title']
-	res_xsize = float(dic['res_xsize'])
-	res_ysize = float(dic['res_ysize'])
-	x_data_row = float(dic['x_data_row'])
-        y_data_row = float(dic['y_data_row'])
-	x_data2_row = float(dic['x_data_row'])
-	y_data2_row = float(dic['y_data_row'])
+	if Residues == 1:
+		density_2 = np.loadtxt(dic['densities_path_2'])
+		data_2 = np.loadtxt(dic['data_path_2'])
+		out_residuesfig_path = dic['out_residuesfig_path']
+		res_xlabel = dic['res_xlabel']
+		res_ylabel = dic['res_ylabel']
+		res_title = dic['res_title']
+		res_xsize = float(dic['res_xsize'])
+		res_ysize = float(dic['res_ysize'])
+		x_data_row = float(dic['x_data_row'])
+        	y_data_row = float(dic['y_data_row'])
+		x_data2_row = float(dic['x_data2_row'])
+		y_data2_row = float(dic['y_data2_row'])
 
 
 
@@ -79,8 +81,9 @@ def histogram(out_histofig_path, nx_bins, ny_bins, histo_xlabel, histo_ylabel,hi
 	plt.savefig(str(out_histofig_path))
 	plt.show()
 
-if hist == 1:
-	histogram(out_histofig_path, nx_bins,ny_bins , histo_xlabel, histo_ylabel,histo_title, histo_xsize, histo_ysize, x_data_row, y_data_row)
+	if D ==2:
+		if hist == 1:
+			histogram(out_histofig_path, nx_bins,ny_bins , histo_xlabel, histo_ylabel,histo_title, histo_xsize, histo_ysize, x_data_row, y_data_row)
 
  
 
@@ -88,13 +91,13 @@ def residuos(out_residuesfig_path, nx_bins, ny_bins, res_xlabel, res_ylabel, res
 	x = density_1[:,0]
 	y = density_1[:,1]
 	n_0 = density_1[:,2]
-	X = data_1[:, x_data_row]
+	X = data_1[:, x_data_row]/15
 	Y = data_1[:, y_data_row]
 	
 	x2 = density_2[:, 0]
 	y2 = density_2[:, 1]
 	n_02 = density_2[:,2]
-	X2 = data_2[:, x_data2_row]
+	X2 = data_2[:, x_data2_row]/15
 	Y2 = data_2[:, y_data2_row] 
 
 	fig = plt.figure(num=None, figsize=(res_xsize, res_ysize))
@@ -110,29 +113,7 @@ def residuos(out_residuesfig_path, nx_bins, ny_bins, res_xlabel, res_ylabel, res
 	ymin2 = np.amin(y2)
 	ymax2 = np.amax(y2)
 
-	#F = np.max[xmin, xmin2]
-	#print F
-	if xmin - xmin2 >= 0:
-		Xmin = xmin
-	else:
-		Xmin = xmin2
-
-	if xmax - xmax2 >= 0:
-		Xmax = xmax
-	else:
-		Xmax = xmax2 
-
-	
-	if ymin - ymin2 >= 0:
-		Ymin = ymin
-	else:
-		Ymin = ymin2
-
-	if ymax - ymax2 >= 0:
-		Ymax = ymax2
-	else:
-		Ymax = ymax 
-
+	 
 	print 'xmin=', np.amin(x)
 	print 'xmax=', np.amax(x)
 	print 'ymin=', np.amin(y)
@@ -148,20 +129,27 @@ def residuos(out_residuesfig_path, nx_bins, ny_bins, res_xlabel, res_ylabel, res
 	plt.ylabel('$\mathrm{' + str(res_ylabel) + '}$', fontsize = 35)
 	plt.title('$\mathrm{'+ str(res_title) + '}$', fontsize = 38)
 	plt.tick_params(axis='both', which='major', labelsize=18)
-	xbins = np.linspace(0, 30, nx_bins)
-	ybins = np.linspace(0, 10, ny_bins)
 	N_0 = n_0 - n_02
-	hist, xedges, yedges = np.histogram2d(x, y, bins=(nx_bins, ny_bins),range=[[Xmin ,Xmax],[Ymin, Ymax]], weights = N_0)
+	hist, xedges, yedges = np.histogram2d(x, y, bins=(nx_bins, ny_bins),range=[[xmin ,xmax],[ymin, ymax]], weights = N_0)
 	hist = hist.transpose()
 	my_extent = (xedges[0], xedges[-1], yedges[0], yedges[-1])
-	#ist2, xedges2, yedges2 = np.histogram2d(x2, y2, bins=(xbins, ybins),range=[[Xmin,Xmax],[Ymin,Ymax]], weights = n_02)
-	#ist2 = hist.transpose()
-	#y_extent = (xedges2[0], xedges2[-1], yedges2[0], yedges2[-1])
-	#ist = hist-hist2
-	im = ax.imshow((hist), extent=[Xmin, Xmax, Ymin, Ymax], interpolation = 'gaussian', origin='lower', aspect='auto')
-	plt.colorbar(im, shrink = 1.0)    #this shrink is to set the scale of the colorbar
+	im = ax.imshow((hist), extent=[xmin, xmax, ymin, ymax], interpolation = 'gaussian', origin='lower', aspect='auto')
+	plt.colorbar(im, shrink = 1.0)    
 	plt.savefig(str(out_residuesfig_path))
 	plt.show()
+	
+	if D ==2:
+		if Residues == 1:
+			residuos(out_residuesfig_path, nx_bins, ny_bins, res_xlabel, res_ylabel, res_title, res_xsize, res_ysize,  x_data_row, y_data_row, x_data2_row, y_data2_row)
 
-if Residues == 1:
-	residuos(out_residuesfig_path, nx_bins, ny_bins, res_xlabel, res_ylabel, res_title, res_xsize, res_ysize,  x_data_row, y_data_row, x_data2_row, y_data2_row)
+
+def one_d():
+	X = density_1[:, 0] 
+        Y = density_2[:, 1]
+	fig = plt.figure(num=None, figsize=(9.5, 9))
+        ax = fig.add_subplot(111)
+	plt.scatter(X, Y)
+	plt.show()
+if D ==1:	
+	one_d()
+
