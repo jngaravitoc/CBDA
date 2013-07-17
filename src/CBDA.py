@@ -1,59 +1,57 @@
 import numpy as np 
 from math import* 
 from random import *
-from scipy import *
-
-global D     # Dimension (1, 2, 3)
-global Res   # Resolution of the Grid
-global K     # Numebers of Neighbours 
-global N_X   # Number of x row in data
-global N_Y   # Number of y row in data
-
-#data = np.loadtxt("../input/synthetic_dat.dat")
-#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/quest.rrab.cmj_akv.dat")
-#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/Quest_cut.dat")
-#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/layden.rrls.mateu_dists.dat")
-data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/sesar.rrls.mydists.dat")
-#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/JJD_BD.dat")
-#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/JJD_VLMS.dat")
-#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/synth.quest.x1.dat")
-#data = np.loadtxt("/home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/synth.quest.x100.dat")
+import scipy as sc
+import sys
 
 
-N_X = 0
-N_Y = 4
-D = 2
+if len(sys.argv) < 2:
+	print 'please provide a script with the following information'
+else:
+	x = sc.genfromtxt(sys.argv[1], dtype='S')
+	dic = {}
+	for i in range(len(x[:,0])):
+		(key, val) = (x[i,0], x[i, 2])
+		dic[(key)] = val
 
-X = data[:, N_X]/15.0 
-Y = data[:, N_Y]
-#print 'amin X=', np.amin(X), 'amax X=', np.amax(X)
-#print 'amin Y=', np.amin(Y), 'amax Y=', np.amax(Y)
-#Z = data[:, N_Z]
+data = np.loadtxt(dic['data_input'])
+data_output = dic['data_output']
+D = float(dic['D'])
+Res = float(dic['Res'])
+K = int(dic['K'])
+N_X = float(dic['N_X'])
+N_Y = float(dic['N_Y']) 
 
 # This function search for the K closest neighbours 
 
 # k = Number of Neighbors, D = Dimension of the space we assume here X = Y | CARTESIAN COORDINATES
 
-def Neighbours_Cartesian(k, Res):
+def Neighbours_Cartesian(K, Res):
 	global d_k
 	d_k = [] 
 	if D == 1:
+		X = data[:, N_X]/15.0
 		Fx = np.linspace(np.amin(X), np.amax(X), Res)
 		for i in Fx:
 			d = (X-i)
 			d2 = sorted(d)
-			d3 = d2[0:k]
+			d3 = d2[0:K]
 			d_k.append(d3)
 	elif D == 2:
+		X = data[:, N_X]/15.0
+		Y = data[:, N_Y]
     		Fx = np.linspace(np.amin(X), np.amax(X), Res)
     		Fy = np.linspace(np.amin(Y), np.amax(Y), Res)
 		for i in Fx:
         		for j in Fy:
             			d = np.sqrt((X-i)**2 + (Y-j)**2)
             			d2 = sorted(d)
-           			d3 = d2[0:k]
+           			d3 = d2[0:K]
          			d_k.append(d3)
 	elif D ==3:
+		X = data[:, N_X]/15.0
+		Y = data[:, N_Y]
+		Z = data[:, N_Z]
     		Fx = np.linspace(np.amin(X), np.amax(X), Res)
     		Fy = np.linspace(np.amin(Y), np.amax(Y), Res)	
 		Fz = np.linspace(np.amin(Z), np.amax(Z), Res)
@@ -62,14 +60,14 @@ def Neighbours_Cartesian(k, Res):
 				for k in Fz:
 					d = np.sqrt((X-i)**2 + (Y-j)**2	+ (Z - k)**2)
 					d2 = sorted(d)
-					d3 = d2[0:k]
+					d3 = d2[0:K]
 					d_k.append(d3)	
 	else:	
 		print 'No aveilable dimension'
     	print 'Completed neighbours finder'
     #print d4[0:10]
     
-Neighbours_Cartesian(12, 200)
+Neighbours_Cartesian(K, Res)
 
 
 def solution(K):
@@ -99,7 +97,7 @@ def solution(K):
 		print 'No aveilable dimension'
 	print 'Completed density estimation'
 	
-solution(12)
+solution(K)
 
 #Sigma Estimator
 
@@ -120,13 +118,18 @@ def sigma_estimator(K):
     #p  rint type(sigma), dtype(S[1]), type(S), dtype(S2), type(sigma_2)
     print 'Completed Sigma estimation'
     print 'Writting data in (../output/)'
-sigma_estimator(12)
+sigma_estimator(K)
 
 
 # Writting Data to make plots
 
 def plots(Res):
-	f = open('../output/Sesar_ARvsRhel.txt', 'w')
+	X = data[:, N_X]/15.0
+        Y = data[:, N_Y]
+        if D ==3:
+		Z = data[:, N_Z]
+
+	f = open(str(data_output), 'w')
     	f.write("#x     y         d_0       sigma" + "\n")
     	#global x
     	#global y
@@ -145,5 +148,5 @@ def plots(Res):
     	f.close()
     #print len(x), len(y), len(T3)
 
-plots(200)
+plots(Res)
 

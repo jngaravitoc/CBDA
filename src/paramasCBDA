@@ -1,0 +1,9 @@
+data_input = /home/nicolas/Dropbox/github/Bayesian_Homeworks/CBDA/input/synth.quest.x100.dat
+data_output =  /home/nicolas/Dropbox/github/CBDA/output/DensityData_SynthQuestx100_ARvsRhel.dat
+D = 2
+Res = 200
+K = 12 
+N_X = 0
+N_Y = 4
+
+
