@@ -21,17 +21,27 @@ Res = float(dic['Res'])
 K = int(dic['K'])
 N_X = float(dic['N_X'])
 N_Y = float(dic['N_Y']) 
+xmin_limit = float(dic['xmin_limit'])
+xmax_limit = float(dic['xmax_limit'])
+ymin_limit = float(dic['ymin_limit'])
+ymax_limit = float(dic['ymax_limit'])
+zmin_limit = float(dic['zmin_limit'])
+zmax_limit = float(dic['zmax_limit'])
 
+print xmin_limit
+print xmax_limit
+print ymin_limit
+print ymax_limit
 # This function search for the K closest neighbours 
 
 # k = Number of Neighbors, D = Dimension of the space we assume here X = Y | CARTESIAN COORDINATES
 
-def Neighbours_Cartesian(K, Res):
+def Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit, zmin_limit, zmax_limit):
 	global d_k
 	d_k = [] 
 	if D == 1:
 		X = data[:, N_X]/15.0
-		Fx = np.linspace(np.amin(X), np.amax(X), Res)
+		Fx = np.linspace( xmin_limit, xmax_limit, Res)
 		for i in Fx:
 			d = (X-i)
 			d2 = sorted(d)
@@ -40,8 +50,8 @@ def Neighbours_Cartesian(K, Res):
 	elif D == 2:
 		X = data[:, N_X]/15.0
 		Y = data[:, N_Y]
-    		Fx = np.linspace(np.amin(X), np.amax(X), Res)
-    		Fy = np.linspace(np.amin(Y), np.amax(Y), Res)
+    		Fx = np.linspace(xmin_limit, xmax_limit, Res)
+    		Fy = np.linspace(ymin_limit, ymax_limit, Res)
 		for i in Fx:
         		for j in Fy:
             			d = np.sqrt((X-i)**2 + (Y-j)**2)
@@ -52,9 +62,9 @@ def Neighbours_Cartesian(K, Res):
 		X = data[:, N_X]/15.0
 		Y = data[:, N_Y]
 		Z = data[:, N_Z]
-    		Fx = np.linspace(np.amin(X), np.amax(X), Res)
-    		Fy = np.linspace(np.amin(Y), np.amax(Y), Res)	
-		Fz = np.linspace(np.amin(Z), np.amax(Z), Res)
+    		Fx = np.linspace(xmin_limit, xmax_limit, Res)
+    		Fy = np.linspace(ymin_limit, ymax_limit, Res)	
+		Fz = np.linspace(zmin_limit, zmax_limit, Res)
 		for i in Fx:
 			for j in Fy:
 				for k in Fz:
@@ -67,7 +77,7 @@ def Neighbours_Cartesian(K, Res):
     	print 'Completed neighbours finder'
     #print d4[0:10]
     
-Neighbours_Cartesian(K, Res)
+Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit, zmin_limit, zmax_limit)
 
 
 def solution(K):
@@ -123,30 +133,41 @@ sigma_estimator(K)
 
 # Writting Data to make plots
 
-def plots(Res):
-	X = data[:, N_X]/15.0
-        Y = data[:, N_Y]
+def plots(Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit, zmin_limit, zmax_limit):
+	if D == 1:
+		X = data[:, N_X]
+        elif D ==2:
+		X = data[:, N_Y]
+		Y = data[:, N_Y]
         if D ==3:
+		X = data[:, N_X]
+		Y = data[:, N_Z]
 		Z = data[:, N_Z]
 
 	f = open(str(data_output), 'w')
-    	f.write("#x     y         d_0       sigma" + "\n")
+	if D == 1:
+		f.write("# x  d_0   sigma " + "\n")
+	if D == 2:
+		f.write("# x    y    d_0      sigma"+ "\n") 		
+	if D == 3:
+    		f.write("#x     y      z      d_0       sigma" + "\n")
     	#global x
     	#global y
     	x = []
     	y = []
-    	Fx = np.linspace(np.amin(X) , np.amax(X)  , Res)
-    	Fy = np.linspace(np.amin(Y) , np.amax(Y)  , Res)
+	z = []
+    	Fx = np.linspace(xmin_limit , xmax_limit  , Res)
+    	Fy = np.linspace(ymin_limit , ymax_limit  , Res)
     	#FRx = linspace(amin(R*cos(theta)) - 5, amax(R*cos(theta)) + 5 , Res)
     	#FRy = linspace(amin(R*sin(theta)) - 5, amax(R*sin(theta)) + 5 , Res)
     	for i in Fx:
         	for j in Fy:
             		x.append(i)
             		y.append(j)
-    	for i in range(len(x)):
+   	for i in range(len(x)):
         	f.write(str(x[i]) + "  " + str(y[i]) + "  " + str(d_0[i]) + "  " + str(sigma_2[i])+"\n") 
     	f.close()
     #print len(x), len(y), len(T3)
 
-plots(Res)
+plots(Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit, zmin_limit, zmax_limit)
 
