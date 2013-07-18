@@ -1,0 +1,7 @@
+This Cookbook provide an example of how to run CBDA.
+
+1. Generate Synthetic Data
+
+2. Use CBDA.py with the synthetic data to obtain the density.
+
+3. Plot your results.
