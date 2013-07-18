@@ -1,6 +1,6 @@
-data_input = ../input/quest.rrab.cmj_akv.slims_ext.par.ssurvey.sql1.dat
+data_input = ../input/sesar.rrls.mydists.dat
 
-data_output =  ../output/DD_Quest_2D.dat
+data_output =  ../output/DD2_SesarObs_2D.dat
 
 D = 2
 
@@ -8,17 +8,17 @@ Res = 200
 
 K = 12 
 
-N_X = 0
+N_X = 4
 
-N_Y = 4
+N_Y = 6
 
 xmin_limit = 3
 
-xmax_limit = 12
+xmax_limit = 40
 
-ymin_limit = 0
+ymin_limit = -35
 
-ymax_limit = 38
+ymax_limit = 0
 
 zmin_limit = 10
 

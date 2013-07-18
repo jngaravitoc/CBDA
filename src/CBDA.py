@@ -48,7 +48,7 @@ def Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit,
 			d3 = d2[0:K]
 			d_k.append(d3)
 	elif D == 2:
-		X = data[:, N_X]/15.0
+		X = data[:, N_X]
 		Y = data[:, N_Y]
     		Fx = np.linspace(xmin_limit, xmax_limit, Res)
     		Fy = np.linspace(ymin_limit, ymax_limit, Res)
@@ -93,7 +93,7 @@ def solution(K):
 				teo = d_k[i][j]/k[j]
 				T.append(teo)
 			T2 = sum(T)
-			d_0.append(1.0/(T2*T2*np.pi))
+			d_0.append(K/(T2*T2*np.pi))
 	elif D == 2:
     		for i in range(len(d_k)): #escala los puntos del espacio
         		T = []
@@ -104,7 +104,7 @@ def solution(K):
         		T2 = np.sqrt(sum(T)) 
         		d_0.append(K/(T2*T2*np.pi)) #This is divided in order to get n_0
 	else:
-		print 'No aveilable dimension'
+		print 'No available dimension'
 	print 'Completed density estimation'
 	
 solution(K)
