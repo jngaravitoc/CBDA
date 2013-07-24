@@ -43,7 +43,7 @@ def Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit,
 		X = data[:, N_X]/15.0
 		Fx = np.linspace(xmin_limit, xmax_limit, Res)
 		for i in Fx:
-			d = (X-i)
+			d =  abs(X-i)
 			d2 = sorted(d)
 			d3 = d2[0:K]
 			d_k.append(d3)
