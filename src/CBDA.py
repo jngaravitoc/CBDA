@@ -40,7 +40,7 @@ def Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit,
 	global d_k
 	d_k = [] 
 	if D == 1:
-		X = data[:, N_X]/15.0
+		X = data[:, N_X]
 		Fx = np.linspace(xmin_limit, xmax_limit, Res)
 		for i in Fx:
 			d =  abs(X-i)
@@ -59,7 +59,7 @@ def Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit,
            			d3 = d2[0:K]
          			d_k.append(d3)
 	elif D ==3:
-		X = data[:, N_X]/15.0
+		X = data[:, N_X]
 		Y = data[:, N_Y]
 		Z = data[:, N_Z]
     		Fx = np.linspace(xmin_limit, xmax_limit, Res)
@@ -147,7 +147,7 @@ def plots(Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit, zmin_limit, zmax_
 		for i in Fx:
 			x.append(i)
 		for i in range(len(x)):
-			 f.write(str(x[i]) +  "  " + str(d_0[i]) + "  " + str(sigma_2[i])+"\n")
+			 f.write(str(Fx[i]) +  "  " + str(d_0[i]) + "  " + str(sigma_2[i])+"\n")
 		f.close()
 		
 	elif D ==2:

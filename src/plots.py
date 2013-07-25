@@ -76,10 +76,11 @@ def histogram(out_histofig_path, nx_bins, ny_bins, histo_xlabel, histo_ylabel,hi
 	hist, xedges, yedges = np.histogram2d(x, y, bins=(nx_bins, ny_bins),range=[[xmin,xmax],[ymin,ymax]], weights = n_0)
 	hist = hist.transpose()
 	my_extent = (xedges[0], xedges[-1], yedges[0], yedges[-1])
-	ax.imshow((hist), extent=[xmin, xmax, ymin, ymax], interpolation = 'gaussian', origin='lower', aspect='auto')
+	im = ax.imshow((hist), extent=[xmin, xmax, ymin, ymax], interpolation = 'gaussian', origin='lower', aspect='auto')
 	plt.scatter(X , Y, s = 1.5)
-	plt.ylim([-35,0])
-	plt.xlim([3, 40])
+	plt.ylim([0,35])
+	plt.xlim([45, 160])
+	plt.colorbar(im, shrink = 1.0)
 	plt.savefig(str(out_histofig_path))
 	plt.show()
 
@@ -151,7 +152,10 @@ def one_d(out_scatter):
         Y = density_1[:, 1]
 	fig = plt.figure(num=None, figsize=(9.5, 9))
         ax = fig.add_subplot(111)
-	plt.scatter(X, Y)
+	plt.plot(X, Y)
+	plt.title('$\mathrm{Observational Data Quest 1D}$', fontsize = 35)
+	plt.xlabel('$\mathrm{AR}$', fontsize = 35)
+	plt.ylabel('$\mathrm{n_0}$', fontsize = 35)
 	plt.savefig(str(out_scatter))
 	plt.show()
 if D ==1:	
