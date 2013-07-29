@@ -15,7 +15,7 @@ else:
 
 # Defining Variables
 	hist = float(dic['Histogram'])
-	Residues = float(dic['Residues'])
+	Residues = float(dic['Residuals'])
 	density_1 = np.loadtxt(dic['densities_path_1'])
 	data_1 = np.loadtxt(dic['data_path_1'])
 	nx_bins = float(dic['nx_bins'])
