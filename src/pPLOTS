@@ -1,50 +1,50 @@
 Histogram = 0
 
-Residues = 1
+Residuals = 0
 
-densities_path_1 = ../output/DD2_SesarSynth_2D.dat    
+densities_path_1 = ../output/1D_Obs_Quest_AR.dat    
 
-densities_path_2 = ../output/DD2_SesarObs_2D.dat
+densities_path_2 = ../output/Obs_Quest_ARvsRhel.dat
 
-data_path_1 = ../input/sesar.rrls.mydists.slims.par.ssurvey.sql1.dat
+data_path_1 = ../input/quest.rrab.cmj_akv.dat
 
-data_path_2 = ../input/sesar.rrls.mydists.dat
+data_path_2 = ../input/quest.rrab.cmj_akv.dat
 
-out_histofig_path = ../output/plots/Sesar2_Obs.png 
+out_histofig_path = ../output/plots/Quest_Obs.png 
 
-out_residuesfig_path = ../output/plots/Sesar2_residues.png
+out_residuesfig_path = ../output/plots/Quest_residuals.png
 
-out_scatter = ../output/plots/sesar1D_AR.png
+out_scatter = ../output/plots/Obs_Quest1D_AR.png
 
-D = 2
+D = 1
 
 nx_bins = 200 
 
 ny_bins = 200
 
-x_data_row = 4
+x_data_row = 0
 
-y_data_row = 6
+y_data_row = 4
 
-x_data2_row = 4
+x_data2_row = 0
 
-y_data2_row = 6
+y_data2_row = 4
 
-histo_xlabel = R_{hel}(Kpc)
+histo_xlabel = AR
 
-histo_ylabel = z
+histo_ylabel = R_{hel}(Kpc)
 
-histo_title = Sesar_Obs
+histo_title = Quest_Obs
 
 histo_xsize = 9.5
 
 histo_ysize = 9.5
 
-res_xlabel = R_{hel}(Kpc)
+res_xlabel = AR
 
-res_ylabel = z
+res_ylabel = R_{hel}(Kpc)
 
-res_title = Residues(SesarSynth-SesarObs)
+res_title = Residals(QuestSynthX1-QuestObs)
 
 res_xsize = 9.5
 
