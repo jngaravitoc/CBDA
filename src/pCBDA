@@ -1,24 +1,24 @@
-data_input = ../input/sesar.rrls.mydists.dat
+data_input = ../input/quest.rrab.cmj_akv.dat
 
-data_output =  ../output/DD2_SesarObs_2D.dat
+data_output =  ../output/1D_Obs_Quest_AR.dat
 
-D = 2
+D = 1
 
 Res = 200
 
 K = 12 
 
-N_X = 4
+N_X = 0
 
-N_Y = 6
+N_Y = 4
 
-xmin_limit = 3
+xmin_limit = 45
 
-xmax_limit = 40
+xmax_limit = 160
 
-ymin_limit = -35
+ymin_limit = 0
 
-ymax_limit = 0
+ymax_limit = 35
 
 zmin_limit = 10
 

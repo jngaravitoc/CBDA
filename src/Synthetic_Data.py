@@ -42,4 +42,4 @@ def Init_Distribution_Polar(nR):
     #savefig('RandomPolarDistribution.png')
     return R, theta
 
-Init_Distribution(100, 100, 1000, 1000)
+Init_Distribution(100, 100, 10000, 10000)
