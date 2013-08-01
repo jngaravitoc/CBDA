@@ -21,6 +21,7 @@ Res = float(dic['Res'])
 K = int(dic['K'])
 N_X = float(dic['N_X'])
 N_Y = float(dic['N_Y']) 
+N_Z = float(dic['N_Z'])
 xmin_limit = float(dic['xmin_limit'])
 xmax_limit = float(dic['xmax_limit'])
 ymin_limit = float(dic['ymin_limit'])
@@ -32,6 +33,8 @@ print xmin_limit
 print xmax_limit
 print ymin_limit
 print ymax_limit
+print zmin_limit
+print zmax_limit
 # This function search for the K closest neighbours 
 
 # k = Number of Neighbors, D = Dimension of the space we assume here X = Y | CARTESIAN COORDINATES
@@ -67,8 +70,8 @@ def Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit,
 		Fz = np.linspace(zmin_limit, zmax_limit, Res)
 		for i in Fx:
 			for j in Fy:
-				for k in Fz:
-					d = np.sqrt((X-i)**2 + (Y-j)**2	+ (Z-k)**2)
+				for k3 in Fz:
+					d = np.sqrt((X-i)**2 + (Y-j)**2	+ (Z-k3)**2)
 					d2 = sorted(d)
 					d3 = d2[0:K]
 					d_k.append(d3)	
@@ -110,7 +113,7 @@ def solution(K):
 				teo = d_k[i][j]**3/ k[j]
 				T.append(teo)
 			T2 = (sum(T))**(1/3)
-			d_0.append(3*K/(4*np.pi*T2*T2*T2))
+			d_0.append(3.0*K/(4.0*np.pi*T2*T2*T2))
 	else:
 		print 'No available dimension'
 	print 'Completed density estimation'
@@ -177,6 +180,17 @@ def plots(Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit, zmin_limit, zmax_
 		Y = data[:, N_Z]
 		Z = data[:, N_Z]
 		f.write("#x     y      z      d_0       sigma" + "\n")
+   	        Fx = np.linspace(xmin_limit , xmax_limit , Res)
+                Fy = np.linspace(ymin_limit , ymax_limit , Res)
+		Fz = np.linspace(zmin_limit , zmax_limit , Res)
+		for i in Fx:
+			for j in Fy:
+				for k3 in Fz:
+					x.append(i)
+					y.append(j)
+					z.append(k3)
+		for i in range(len(x)):
+			f.write(str(x[i]) + "   " + str(y[i]) + "   " + str(z[i]) + "   " + str(d_0[i])  + "\n")   
 	
 	
    	#FRx = linspace(amin(R*cos(theta)) - 5, amax(R*cos(theta)) + 5 , Res)

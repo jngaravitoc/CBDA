@@ -1,25 +1,27 @@
-data_input = ../input/quest.rrab.cmj_akv.dat
+data_input = ../input/3Dsynthetic_data.dat
 
-data_output =  ../output/1D_Obs_Quest_AR.dat
+data_output =  ../output/3Dtest.dat
 
-D = 1
+D = 3
 
-Res = 200
+Res = 100
 
-K = 12 
+K = 8 
 
 N_X = 0
 
-N_Y = 4
+N_Y = 1
 
-xmin_limit = 45
+N_Z = 2
 
-xmax_limit = 160
+xmin_limit = 0
+
+xmax_limit = 100
 
 ymin_limit = 0
 
-ymax_limit = 35
+ymax_limit = 100
 
-zmin_limit = 10
+zmin_limit = 0
 
-zmax_limit = 70
+zmax_limit = 100
