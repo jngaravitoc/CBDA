@@ -68,7 +68,7 @@ def Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit,
 		for i in Fx:
 			for j in Fy:
 				for k in Fz:
-					d = np.sqrt((X-i)**2 + (Y-j)**2	+ (Z - k)**2)
+					d = np.sqrt((X-i)**2 + (Y-j)**2	+ (Z-k)**2)
 					d2 = sorted(d)
 					d3 = d2[0:K]
 					d_k.append(d3)	
@@ -103,6 +103,14 @@ def solution(K):
 				#print type(T)
         		T2 = np.sqrt(sum(T)) 
         		d_0.append(K/(T2*T2*np.pi)) #This is divided in order to get n_0
+	elif D ==3: 
+		for i in range(len(d_k)):
+			T=[]
+			for j in range (K): 
+				teo = d_k[i][j]**3/ k[j]
+				T.append(teo)
+			T2 = (sum(T))**(1/3)
+			d_0.append(3*K/(4*np.pi*T2*T2*T2))
 	else:
 		print 'No available dimension'
 	print 'Completed density estimation'
