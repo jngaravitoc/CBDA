@@ -191,7 +191,7 @@ def plots(Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit, zmin_limit, zmax_
 					z.append(k3)
 		for i in range(len(x)):
 			f.write(str(x[i]) + "   " + str(y[i]) + "   " + str(z[i]) + "   " + str(d_0[i])  + "\n")   
-	
+		f.close()	
 	
    	#FRx = linspace(amin(R*cos(theta)) - 5, amax(R*cos(theta)) + 5 , Res)
     	#FRy = linspace(amin(R*sin(theta)) - 5, amax(R*sin(theta)) + 5 , Res)
