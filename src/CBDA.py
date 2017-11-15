@@ -5,8 +5,14 @@ import scipy as sc
 import sys
 
 def Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit, zmin_limit, zmax_limit):
-    global d_k
-    d_k = [] 
+    """
+    Returns the distance to the kth neighboor d_k
+
+    TODO:
+    -----
+    Use Scikit-learn!
+    """
+    d_k = []
     if D == 1:
         X = data[:, N_X]
         Fx = np.linspace(xmin_limit, xmax_limit, Res)
@@ -44,6 +50,7 @@ def Neighbours_Cartesian(K, Res, xmin_limit, xmax_limit, ymin_limit, ymax_limit,
         print('No aveilable dimension')
         print('Completed neighbours finder')
     #print d4[0:10]
+    return d_k
 
 
 
@@ -58,7 +65,7 @@ def solution(K):
                 teo = d_k[i][j]/k[j]
                 T.append(teo)
                 T2 = sum(T)
-            d_0.append(K/(T2*T2*np.pi))
+                d_0.append(K/(T2*T2*np.pi))
     elif D == 2:
         for i in range(len(d_k)): #escala los puntos del espacio
             T = []
@@ -66,15 +73,15 @@ def solution(K):
                 teo = d_k[i][j]**2 / k[j] 
                 T.append(teo)
                 T2 = np.sqrt(sum(T)) 
-                 d_0.append(K/(T2*T2*np.pi)) #This is divided in order to get n_0
+                d_0.append(K/(T2*T2*np.pi)) #This is divided in order to get n_0
     elif D ==3: 
         for i in range(len(d_k)):
             T=[]
             for j in range (K): 
                 teo = d_k[i][j]**3/ k[j]
                 T.append(teo)
-            T2 = (sum(T))**(1/3)
-            d_0.append(3.0*K/(4.0*np.pi*T2*T2*T2))
+                T2 = (sum(T))**(1/3)
+                 d_0.append(3.0*K/(4.0*np.pi*T2*T2*T2))
     else:
         print('No available dimension')
         print('Completed density estimation')
